@@ -1,15 +1,19 @@
 import Task from "./Task";
 
-export default function TaskList({ list }) {
+export default function TaskList({ list, toggleCompleted, deleteTask, editTask }) {
   return (
     <>
       <ul>
-        {list.map((tasks) => (
+        {list.map((task) => (
           <Task
-            key={tasks.id}
-            title={tasks.title}
-            completed={tasks.completed}
-            description={tasks.description}
+            id={task.id}
+            key={task.title}
+            title={task.title}
+            completed={task.completed}
+            description={task.description}
+            toggleCompleted={toggleCompleted}
+            deleteTask={deleteTask}
+            editTask={editTask}
           />
         ))}
       </ul>
