@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import Header from '../components/Header'
-import TaskAdd from '../components/TaskAdd'
-import TaskList from '../components/TaskList'
+import Header from './components/Header'
+import TaskAdd from './components/TaskAdd'
+import TaskList from './components/TaskList'
 import './App.css'
 
 function App() {
