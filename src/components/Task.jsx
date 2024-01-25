@@ -1,12 +1,11 @@
-import { useState } from "react";
+import { useState } from 'react';
+import { Box, Stack, Checkbox, Input, Flex, Button } from '@chakra-ui/react';
+import { EditIcon, DeleteIcon, CheckIcon, CloseIcon } from '@chakra-ui/icons';
 
-export default function Task({ id, title, description, completed, toggleCompleted, deleteTask, editTask }) {
+export default function Task({ title, description, completed, toggleCompleted, deleteTask, editTask }) {
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
-
-  const titleInputId = `title-input-${id}`;
-  const descriptionInputId = `description-input-${id}`;
 
   const handleToggleComplete = () => {
     toggleCompleted({ title, completed: !completed });
@@ -25,47 +24,75 @@ export default function Task({ id, title, description, completed, toggleComplete
     setIsEditing(false);
   };
 
+  const handleCancel = () => {
+    setIsEditing(false);
+  };
+
   return (
-    <li>
+    <Box p="4" mb="4" borderRadius="lg" bg='white' boxShadow="xl">
       {isEditing ? (
-        <>
-          <input
-            id={titleInputId}
+        <Stack spacing={4}>
+          <Input
             type="text"
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
+            variant="flushed"
+            placeholder='Nuevo titulo'
           />
-          <label htmlFor={descriptionInputId}>Nueva descripcion</label>
-          <input 
-            id={descriptionInputId}
-            type="text"
+          <Input
             value={newDescription}
             onChange={(e) => setNewDescription(e.target.value)}
+            variant="filled"
+            placeholder='Nueva descripción'
           />
-          <button type="button" onClick={handleSave}>
-            Save
-          </button>
-        </>
+
+          <Flex justifyContent="space-around">
+            <Button
+              leftIcon={<CheckIcon />}
+              colorScheme="teal"
+              onClick={handleSave}
+              aria-label="Save"
+            >
+              Gurardar
+            </Button>
+            <Button
+              leftIcon={<CloseIcon />}
+              colorScheme="red"
+              onClick={handleCancel}
+              aria-label="Cancel"
+            >
+              Cancelar
+            </Button>
+          </Flex>
+        </Stack>
       ) : (
         <>
-          <label>
-            {title}
-            <p>{description}</p>
-            <input
-              id={id}
-              type="checkbox"
-              checked={completed}
-              onChange={handleToggleComplete}
+          <Flex direction="row" wrap="wrap" justifyContent="space-evenly">
+            <Checkbox isChecked={completed} onChange={handleToggleComplete} mb="2" width="100%">
+              {title}
+            </Checkbox>
+            <Input
+              width="70%"
+              readOnly
+              value={description}
             />
-          </label>
-          <button type="button" onClick={handleEdit}>
-            Editar
-          </button>
-          <button type="button" onClick={handleDelete}>
-            Borrar
-          </button>
+            <Button
+              leftIcon={<EditIcon />}
+              iconSpacing={'unset'}
+              colorScheme="teal"
+              onClick={handleEdit}
+              aria-label="Edit"
+            />
+            <Button
+              leftIcon={<DeleteIcon />}
+              iconSpacing={'unset'}
+              colorScheme="red"
+              onClick={handleDelete}
+              aria-label="Delete"
+            />
+          </Flex>
         </>
       )}
-    </li>
+    </Box>
   );
 }

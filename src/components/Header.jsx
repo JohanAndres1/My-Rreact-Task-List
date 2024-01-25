@@ -1,7 +1,11 @@
+import { Box, Heading } from "@chakra-ui/react";
+
 export default function Header() {
   return (
-    <header>
-      <h1>Lista de Tareas</h1>
-    </header>
+    <Box as="header" textAlign="center" padding="2rem" marginTop="56px" >
+      <Heading as="h1">
+        Lista de Tareas
+      </Heading>
+    </Box>
   );
 }
